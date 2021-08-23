@@ -20,19 +20,14 @@ kurgan add application-autoscaling
 | EnvironmentName | Tagging | dev | true | string
 | EnvironmentType | Tagging | development | true | string | ['development','production']
 
-## Configuration
+## ECS Application AutoScaling Configuration
 
-
-
+TODO
 
 
 ## Outputs/Exports
 
-| Name | Value | Exported |
-| ---- | ----- | -------- |
-| SecurityGroup | Ecs Service SecurityGroup | true
-| TaskTargetGroup | Task Targetgroup | true
-| ServiceName | Ecs Service Name | true
+None
 
 
 ## Development
@@ -69,11 +64,11 @@ gem install rspec
 rspec
 
 .........
-CloudFormation YAML template for ecs-task written to /Users/aaronwalker/Workspaces/theonestack/hl-component-fargate-v2/out/yaml/fargatev2Task.compiled.yaml
-CloudFormation YAML template for fargate-v2 written to /Users/aaronwalker/Workspaces/theonestack/hl-component-fargate-v2/out/tests/targetgroup_param/fargate-v2.compiled.yaml
-Validate template /Users/aaronwalker/Workspaces/theonestack/hl-component-fargate-v2/out/tests/targetgroup_param/fargate-v2.compiled.yaml locally
+CloudFormation YAML template for ecs-scaling written to /workspace/hl-component-application-autoscaling/out/yaml/autoscaling.compiled.yaml
+CloudFormation YAML template for application-autoscaling written to /workspace/hl-component-application-autoscaling/out/tests/default_ecs/application-autoscaling.compiled.yaml
+Validate template /workspace/hl-component-application-autoscaling/out/tests/default_ecs/application-autoscaling.compiled.yaml locally
 SUCCESS
-Validate template /Users/aaronwalker/Workspaces/theonestack/hl-component-fargate-v2/out/yaml/fargatev2Task.compiled.yaml locally
+Validate template /workspace/hl-component-application-autoscaling/out/yaml/autoscaling.compiled.yaml locally
 SUCCESS
 
   ============================
@@ -82,12 +77,12 @@ SUCCESS
 
   Pass: 1
   Fail: 0
-  Time: 3.289156
+  Time: 0.218296452
 
 ...
 
-Finished in 32.62 seconds (files took 0.31077 seconds to load)
-40 examples, 0 failures
+Finished in 3.16 seconds (files took 0.101 seconds to load)
+12 examples, 0 failures
 ```
 
 

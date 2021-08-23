@@ -1,0 +1,7 @@
+
+test_metadata:
+  type: config
+  name: default_ecs
+  description: default ecs config test
+
+service_namespace: ecs

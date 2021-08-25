@@ -1,6 +1,6 @@
 require 'yaml'
 
-describe 'should fail without a task_definition' do
+describe 'should create ecs application autoscaling resources with default CPU based scaling metrics' do
   
   context 'cftest' do
     it 'compiles test' do
@@ -79,7 +79,7 @@ describe 'should fail without a task_definition' do
       expect(properties).to eq({
         "MaxCapacity" => {"Ref"=>"Max"},
         "MinCapacity" => {"Ref"=>"Min"},
-        "ResourceId" => {"Fn::Join"=>["", ["service/", {"Fn::Select"=>[0, {"Fn::Split"=>["/", {"Ref"=>"Service"}]}]}, "/", {"Fn::Select"=>[1, {"Fn::Split"=>["/", {"Ref"=>"Service"}]}]}]]},
+        "ResourceId" => {"Fn::Join"=>["", ["service/", {"Fn::Select"=>[1, {"Fn::Split"=>["/", {"Ref"=>"Service"}]}]}, "/", {"Fn::Select"=>[2, {"Fn::Split"=>["/", {"Ref"=>"Service"}]}]}]]},
         "RoleARN" => {"Fn::GetAtt"=>["ServiceECSAutoScaleRole", "Arn"]},
         "ScalableDimension" => "ecs:service:DesiredCount",
         "ServiceNamespace" => "ecs",
@@ -108,7 +108,7 @@ describe 'should fail without a task_definition' do
         "AlarmActions" => [{"Ref"=>"ServiceScalingUpPolicy"}],
         "AlarmDescription" => {"Fn::Join"=>[" ", [{"Ref"=>"EnvironmentName"}, "autoscaling ecs scale up alarm"]]},
         "ComparisonOperator" => "GreaterThanThreshold",
-        "Dimensions" => [{"Name"=>"ServiceName", "Value"=>{"Fn::Select"=>[1, {"Fn::Split"=>["/", {"Ref"=>"Service"}]}]}}, {"Name"=>"ClusterName", "Value"=>{"Fn::Select"=>[0, {"Fn::Split"=>["/", {"Ref"=>"Service"}]}]}}],
+        "Dimensions" => [{"Name"=>"ServiceName", "Value"=>{"Fn::Select"=>[2, {"Fn::Split"=>["/", {"Ref"=>"Service"}]}]}}, {"Name"=>"ClusterName", "Value"=>{"Fn::Select"=>[1, {"Fn::Split"=>["/", {"Ref"=>"Service"}]}]}}],
         "EvaluationPeriods" => "5",
         "MetricName" => "CPUUtilization",
         "Namespace" => "AWS/ECS",
@@ -140,7 +140,7 @@ describe 'should fail without a task_definition' do
         "AlarmActions" => [{"Ref"=>"ServiceScalingDownPolicy"}],
         "AlarmDescription" => {"Fn::Join"=>[" ", [{"Ref"=>"EnvironmentName"}, "autoscaling ecs scale down alarm"]]},
         "ComparisonOperator" => "LessThanThreshold",
-        "Dimensions" => [{"Name"=>"ServiceName", "Value"=>{"Fn::Select"=>[1, {"Fn::Split"=>["/", {"Ref"=>"Service"}]}]}}, {"Name"=>"ClusterName", "Value"=>{"Fn::Select"=>[0, {"Fn::Split"=>["/", {"Ref"=>"Service"}]}]}}],
+        "Dimensions" => [{"Name"=>"ServiceName", "Value"=>{"Fn::Select"=>[2, {"Fn::Split"=>["/", {"Ref"=>"Service"}]}]}}, {"Name"=>"ClusterName", "Value"=>{"Fn::Select"=>[1, {"Fn::Split"=>["/", {"Ref"=>"Service"}]}]}}],
         "EvaluationPeriods" => "5",
         "MetricName" => "CPUUtilization",
         "Namespace" => "AWS/ECS",

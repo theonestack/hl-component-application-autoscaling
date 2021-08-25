@@ -21,8 +21,8 @@ CloudFormation do
     }])
   end
 
-  ecs_cluster = FnSelect(0, FnSplit('/', Ref(:Service)))
-  service_name = FnSelect(1, FnSplit('/', Ref(:Service)))
+  ecs_cluster = FnSelect(1, FnSplit('/', Ref(:Service)))
+  service_name = FnSelect(2, FnSplit('/', Ref(:Service)))
 
   ApplicationAutoScaling_ScalableTarget(:ServiceScalingTarget) do
     MaxCapacity Ref(:Max)

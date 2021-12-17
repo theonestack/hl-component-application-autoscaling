@@ -1,0 +1,14 @@
+
+test_metadata:
+  type: config
+  name: ecs_target_tracking
+  description: tests ecs target tracking
+
+service_namespace: ecs
+
+scaling_policy:
+  target:
+    metric_type: ECSServiceAverageCPUUtilization
+    scale_in_cooldown: 180
+    scale_out_cooldown: 60
+    target_value: 75

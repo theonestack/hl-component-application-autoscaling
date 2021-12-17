@@ -54,6 +54,10 @@ CloudFormation do
   if scaling_policy['down'].kind_of?(Hash)
     scaling_policy['down'] = [scaling_policy['down']]
   end
+  
+  if scaling_policy['target'].kind_of?(Hash)
+    scaling_policy['target'] = [scaling_policy['target']]
+  end
 
   scaling_policy['up'].each_with_index do |scale_up_policy, i|
     logical_scaling_policy_name = "ServiceScalingUpPolicy"  + (i > 0 ? "#{i+1}" : "")
@@ -84,7 +88,7 @@ CloudFormation do
       ComparisonOperator 'GreaterThanThreshold'
       Dimensions scale_up_policy['dimentions'] || default_alarm['dimentions']
     end
-  end
+  end unless scaling_policy['up'].nil?
 
   scaling_policy['down'].each_with_index do |scale_down_policy, i|
     logical_scaling_policy_name = "ServiceScalingDownPolicy"  + (i > 0 ? "#{i+1}" : "")
@@ -115,6 +119,27 @@ CloudFormation do
       ComparisonOperator 'LessThanThreshold'
       Dimensions scale_down_policy['dimentions'] || default_alarm['dimentions']
     end
-  end
+  end unless scaling_policy['down'].nil?
+
+  scaling_policy['target'].each_with_index do |scale_target_policy, i|
+    logical_scaling_policy_name = "ServiceTargetTrackingPolicy"  + (i > 0 ? "#{i+1}" : "")
+    policy_name                 = "target-tracking-policy"       + (i > 0 ? "-#{i+1}" : "")
+
+    puts "############### #{scale_target_policy} ################"
+    ApplicationAutoScaling_ScalingPolicy(logical_scaling_policy_name) do
+      PolicyName FnJoin('-', [ Ref('EnvironmentName'), component_name, policy_name])
+      PolicyType 'TargetTrackingScaling'
+      ScalingTargetId Ref(:ServiceScalingTarget)
+      TargetTrackingScalingPolicyConfiguration({
+        TargetValue: scale_target_policy['target_value'].to_s,
+        ScaleInCooldown: scale_target_policy['scale_in_cooldown'].to_s,
+        ScaleOutCooldown: scale_target_policy['scale_in_cooldown'].to_s,
+        PredefinedMetricSpecification: {
+          PredefinedMetricType: scale_target_policy['metric_type'] || 'ECSServiceAverageCPUUtilization'
+        }
+      })
+    end
+  end unless scaling_policy['target'].nil?
+
 
 end

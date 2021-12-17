@@ -1,12 +1,2 @@
 
-scaling_policy:
-  up:
-    cooldown: 150
-    threshold: 70
-    evaluation_periods: 5
-    adjustment: 2
-  down:
-    cooldown: 600
-    threshold: 70
-    evaluation_periods: 5
-    adjustment: -1
+scaling_policy: {}

@@ -18,7 +18,7 @@ RSpec.configure do |config|
     # assertion/expectation library such as wrong or the stdlib/minitest
     # assertions if you prefer.
     
-    config.before(:context) { @validate = ENV['TRAVIS_PULL_REQUEST'] ? '--no-validate' : '--validate' }
+    config.before(:context) { @validate = ENV['GITHUB_HEAD_REF'] ? '--no-validate' : '--validate' }
     
     config.expect_with :rspec do |expectations|
       # This option will default to `true` in RSpec 4. It makes the `description`

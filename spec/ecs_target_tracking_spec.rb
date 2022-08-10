@@ -33,7 +33,7 @@ describe 'should create ecs application autoscaling resources with default CPU b
         "PolicyName" => {"Fn::Join"=>["-", [{"Ref"=>"EnvironmentName"}, "autoscaling", "target-tracking-policy"]]},
         "PolicyType" => "TargetTrackingScaling",
         "ScalingTargetId" => {"Ref"=>"ServiceScalingTarget"},
-        "TargetTrackingScalingPolicyConfiguration" => {"PredefinedMetricSpecification"=>{"PredefinedMetricType"=>"ECSServiceAverageCPUUtilization"}, "ScaleInCooldown"=>"180", "ScaleOutCooldown"=>"180", "TargetValue"=>"75"},
+        "TargetTrackingScalingPolicyConfiguration" => {"PredefinedMetricSpecification"=>{"PredefinedMetricType"=>"ECSServiceAverageCPUUtilization"}, "ScaleInCooldown"=>"180", "ScaleOutCooldown"=>"60", "TargetValue"=>"75"},
       })
     end
   end

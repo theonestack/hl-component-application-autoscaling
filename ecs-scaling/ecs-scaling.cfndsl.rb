@@ -133,7 +133,7 @@ CloudFormation do
       TargetTrackingScalingPolicyConfiguration({
         TargetValue: scale_target_policy['target_value'].to_s,
         ScaleInCooldown: scale_target_policy['scale_in_cooldown'].to_s,
-        ScaleOutCooldown: scale_target_policy['scale_in_cooldown'].to_s,
+        ScaleOutCooldown: scale_target_policy['scale_out_cooldown'].to_s,
         PredefinedMetricSpecification: {
           PredefinedMetricType: scale_target_policy['metric_type'] || 'ECSServiceAverageCPUUtilization'
         }

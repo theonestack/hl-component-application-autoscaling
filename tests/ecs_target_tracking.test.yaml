@@ -11,4 +11,4 @@ scaling_policy:
     metric_type: ECSServiceAverageCPUUtilization
     scale_in_cooldown: 180
     scale_out_cooldown: 60
-    target_value: 75
+    target_value: "75"

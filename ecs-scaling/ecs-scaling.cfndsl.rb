@@ -131,17 +131,17 @@ CloudFormation do
       PolicyType 'TargetTrackingScaling'
       ScalingTargetId Ref(:ServiceScalingTarget)
       TargetTrackingScalingPolicyConfiguration do
-        TargetValue scale_target_policy['target_value'].to_s
+        TargetValue scale_target_policy['target_value']
         ScaleInCooldown scale_target_policy['scale_in_cooldown'].to_s
         ScaleOutCooldown scale_target_policy['scale_out_cooldown'].to_s
         PredefinedMetricSpecification do
           PredefinedMetricType scale_target_policy['metric_type'] || 'ECSServiceAverageCPUUtilization'
         end unless scale_target_policy['metric_type'].nil?
         CustomizedMetricSpecification do
-          Namespace scale_target_policy['custom']['namespace'].to_s
-          MetricName scale_target_policy['custom']['metric_name'].to_s
-          Statistic scale_target_policy['custom']['statistic'].to_s
-          Unit scale_target_policy['custom']['unit'].to_s unless scale_target_policy['custom']['unit'].nil?
+          Namespace scale_target_policy['custom']['namespace']
+          MetricName scale_target_policy['custom']['metric_name']
+          Statistic scale_target_policy['custom']['statistic']
+          Unit scale_target_policy['custom']['unit'] unless scale_target_policy['custom']['unit'].nil?
           Dimensions scale_target_policy['custom']['dimensions'] unless scale_target_policy['custom']['dimensions'].nil?
         end unless scale_target_policy['custom'].nil?
       end

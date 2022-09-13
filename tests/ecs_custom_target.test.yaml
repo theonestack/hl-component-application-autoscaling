@@ -22,4 +22,4 @@ scaling_policy:
           Value: myqueue
     scale_in_cooldown: 180
     scale_out_cooldown: 60
-    target_value: 10
+    target_value: "10"

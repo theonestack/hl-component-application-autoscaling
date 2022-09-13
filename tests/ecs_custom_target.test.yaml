@@ -1,0 +1,25 @@
+
+test_metadata:
+  type: config
+  name: ecs_custom_target
+  description: tests ecs custom target tracking
+
+service_namespace: ecs
+
+scaling_policy:
+  target:
+    custom:
+      namespace: AWS/AmazonMQ
+      metric_name: MessageCount
+      statistic: Average
+      unit: Count
+      dimensions:
+        - Name: Broker
+          Value: dev-rabbitmq
+        - Name: VirtualHost
+          Value: /
+        - Name: Queue
+          Value: myqueue
+    scale_in_cooldown: 180
+    scale_out_cooldown: 60
+    target_value: 10

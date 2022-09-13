@@ -33,7 +33,7 @@ describe 'should create ecs application autoscaling resources a custom metric' d
         "PolicyName" => {"Fn::Join"=>["-", [{"Ref"=>"EnvironmentName"}, "autoscaling", "target-tracking-policy"]]},
         "PolicyType" => "TargetTrackingScaling",
         "ScalingTargetId" => {"Ref"=>"ServiceScalingTarget"},
-        "TargetTrackingScalingPolicyConfiguration" => {"CustomizedMetricSpecification"=>{"Dimensions"=>"[{\"Name\"=>\"Broker\", \"Value\"=>\"dev-rabbitmq\"}, {\"Name\"=>\"VirtualHost\", \"Value\"=>\"/\"}, {\"Name\"=>\"Queue\", \"Value\"=>\"myqueue\"}]", "MetricName"=>"MessageCount", "Namespace"=>"AWS/AmazonMQ", "Statistic"=>"Average", "Unit"=>"Count"}, "ScaleInCooldown"=>"180", "ScaleOutCooldown"=>"60", "TargetValue"=>"10"}
+        "TargetTrackingScalingPolicyConfiguration" => {"CustomizedMetricSpecification"=>{"Dimensions"=>[{"Name"=>"Broker", "Value"=>"dev-rabbitmq"}, {"Name"=>"VirtualHost", "Value"=>"/"}, {"Name"=>"Queue", "Value"=>"myqueue"}], "MetricName"=>"MessageCount", "Namespace"=>"AWS/AmazonMQ", "Statistic"=>"Average", "Unit"=>"Count"}, "ScaleInCooldown"=>"180", "ScaleOutCooldown"=>"60", "TargetValue"=>"10"},
       })
     end
   end

@@ -142,7 +142,7 @@ CloudFormation do
           MetricName scale_target_policy['custom']['metric_name'].to_s
           Statistic scale_target_policy['custom']['statistic'].to_s
           Unit scale_target_policy['custom']['unit'].to_s unless scale_target_policy['custom']['unit'].nil?
-          Dimensions scale_target_policy['custom']['dimensions'].to_s unless scale_target_policy['custom']['dimensions'].nil?
+          Dimensions scale_target_policy['custom']['dimensions'] unless scale_target_policy['custom']['dimensions'].nil?
         end unless scale_target_policy['custom'].nil?
       end
     end

@@ -115,8 +115,15 @@ CloudFormation do
       Period (scale_down_policy['period'] || default_alarm['period']).to_s
       EvaluationPeriods scale_down_policy['evaluation_periods'].to_s
       Threshold scale_down_policy['threshold'].to_s
-      AlarmActions [Ref(logical_scaling_policy_name)]
-      ComparisonOperator 'LessThanThreshold'
+      if scale_down_policy.has_key?('less_strictly')
+        if scale_down_policy['less_strictly'] == true    
+          OKActions [Ref(logical_scaling_policy_name)]     
+          ComparisonOperator 'GreaterThanThreshold'     
+        end
+      else
+        AlarmActions [Ref(logical_scaling_policy_name)]     
+        ComparisonOperator 'LessThanThreshold'
+      end
       Dimensions scale_down_policy['dimentions'] || default_alarm['dimentions']
     end
   end unless scaling_policy['down'].nil?

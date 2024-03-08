@@ -1,0 +1,13 @@
+
+test_metadata:
+  type: config
+  name: ecs_target_scheduled_actions
+  description: ecs target scheduled actions config test
+
+service_namespace: ecs
+
+scaling_policy:
+  scheduled_actions:
+    - min_capacity: 1
+      max_capacity: 2
+      schedule: cron(0 8 * * ? *)

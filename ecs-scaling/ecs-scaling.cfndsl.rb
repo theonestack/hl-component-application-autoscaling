@@ -23,6 +23,20 @@ CloudFormation do
 
   ecs_cluster = FnSelect(1, FnSplit('/', Ref(:Service)))
   service_name = FnSelect(2, FnSplit('/', Ref(:Service)))
+  scheduled_actions = []
+
+  scaling_policy['scheduled_actions'].each do | a |
+    action = {
+      'ScalableTargetAction' => {
+        'MaxCapacity' => a['max_capacity'],
+        'MinCapacity' => a['min_capacity']
+      },
+      'Schedule' => a['schedule'],
+      'ScheduledActionName' => FnJoin( '-', [ "service", ecs_cluster, service_name, "scheduled-action-#{scheduled_actions.length + 1}" ] )
+    }
+    action[:Timezone] = scaling_policy['timezone'] if scaling_policy.key? 'timezone'
+    scheduled_actions << action
+  end if scaling_policy.key? 'scheduled_actions'
 
   ApplicationAutoScaling_ScalableTarget(:ServiceScalingTarget) do
     MaxCapacity Ref(:Max)
@@ -31,6 +45,7 @@ CloudFormation do
     RoleARN FnGetAtt(:ServiceECSAutoScaleRole,:Arn)
     ScalableDimension "ecs:service:DesiredCount"
     ServiceNamespace "ecs"
+    ScheduledActions scheduled_actions if scheduled_actions.length > 0
   end
   
   default_alarm = {}

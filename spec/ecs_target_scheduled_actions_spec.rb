@@ -24,7 +24,8 @@ describe 'should create ecs application autoscaling resources with scheduled act
         "ScheduledActions" => [{
           "ScalableTargetAction" => {"MaxCapacity"=>2, "MinCapacity"=>1},
           "Schedule" => "cron(0 8 * * ? *)",
-          "ScheduledActionName" => {"Fn::Join"=>["-", ["service", {"Fn::Select"=>[1, {"Fn::Split"=>["/", {"Ref"=>"Service"}]}]}, {"Fn::Select"=>[2, {"Fn::Split"=>["/", {"Ref"=>"Service"}]}]}, "scheduled-action-1"]]}
+          "ScheduledActionName" => {"Fn::Join"=>["-", ["service", {"Fn::Select"=>[1, {"Fn::Split"=>["/", {"Ref"=>"Service"}]}]}, {"Fn::Select"=>[2, {"Fn::Split"=>["/", {"Ref"=>"Service"}]}]}, "scheduled-action-1"]]},
+          "Timezone" => "America/Denver"
         }]
       })
     end

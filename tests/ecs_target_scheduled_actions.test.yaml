@@ -7,6 +7,7 @@ test_metadata:
 service_namespace: ecs
 
 scaling_policy:
+  timezone: America/Denver
   scheduled_actions:
     - min_capacity: 1
       max_capacity: 2
